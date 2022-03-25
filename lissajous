@@ -93,7 +93,7 @@ def draw():
         tur.pendown()
         tur.getscreen().update()
 def startsim():
-    img2 = Image.open("addaphotohere.png")
+    img2 = Image.open("Friction_75deg_short.png")
     img.paste(img2, (0, 0))
     start_sim.destroy()
 
@@ -130,7 +130,7 @@ def startsim():
     drawwbut.place(x=200, y=700)
 
 def next1fn():
-    img2 = Image.open("addaphotohere.png")
+    img2 = Image.open("Friction_75deg_long.png")
     img.paste(img2, (0, 0))
     next1.destroy()
     global start_sim
@@ -142,7 +142,7 @@ simulator = Tk()
 simulator.geometry("1080x720")
 simulator.title("LISSAJOUS PATTERN")
 canva = Canvas(simulator, width=1080, height=720)
-img = ImageTk.PhotoImage(Image.open("addaphotohere.png"))
+img = ImageTk.PhotoImage(Image.open("blank.png"))
 canva.create_image(10, 10, anchor=NW, image=img)
 
 
