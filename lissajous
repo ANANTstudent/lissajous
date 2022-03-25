@@ -1,0 +1,158 @@
+from tkinter import *
+from tkinter import ttk
+import math
+import turtle
+
+from PIL import ImageTk, Image
+amp1=0
+amp2=0
+a=0
+b=0
+phi=0
+t=0
+
+
+class HoverButton(Button):
+    def __init__(self, master, **kw):
+        Button.__init__(self, master=master, **kw)
+        self.defaultBackground = self["background"]
+        self.defaultForeground = self["foreground"]
+        self.bind("<Enter>", self.on_enter)
+        self.bind("<Leave>", self.on_leave)
+
+    def on_enter(self, e):
+        self['background'] = self['activebackground']
+        self['foreground'] = self['activeforeground']
+
+    def on_leave(self, e):
+        self['background'] = self.defaultBackground
+        self['foreground'] = self.defaultForeground
+
+def amp1plus():
+    global amp1
+    amp1+=10
+
+def amp1minus():
+    global amp1
+    if(amp1>0):
+        amp1-=10
+
+def amp2plus():
+    global amp2
+    amp2+=10
+
+def amp2minus():
+    global amp2
+    if(amp2>0):
+        amp2-=10
+def aplus():
+    global a
+    a+=1
+
+def aminus():
+    global a
+    if(a>0):
+        a-=1
+
+def bplus():
+    global b
+    b+=1
+
+def bminus():
+    global b
+    if(b>0):
+        b-=1
+def phiplus():
+    global phi
+    phi+=1
+
+def phiminus():
+    global phi
+    if(phi>0):
+        phi-=1
+
+def draw():
+    window = turtle.Screen()
+    window.bgcolor("#D6EAF8")
+    global t
+
+    tur = turtle.Turtle()
+    tur.hideturtle()
+    tur.speed(5)
+    tur.color("#2E4053")
+
+    tur.penup()
+
+
+    for i in range(0, 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000):
+        t += 0.01
+        x = amp1 * math.sin(a * t + phi)
+        y = amp2 * math.sin(b * t)
+
+        tur.goto(x, y)
+        tur.pendown()
+        tur.getscreen().update()
+def startsim():
+    img2 = Image.open("addaphotohere.png")
+    img.paste(img2, (0, 0))
+    start_sim.destroy()
+
+
+    amp1plusbut=HoverButton(simulator, text="amp1 +", padx=2, pady=2, command=amp1plus, background='white',activeforeground='blue', borderwidth=0)
+    amp1minusbut = HoverButton(simulator, text="amp1 -", padx=2, pady=2, command=amp1minus, background='white',activeforeground='blue', borderwidth=0)
+    amp2plusbut = HoverButton(simulator, text="amp2 +", padx=2, pady=2, command=amp2plus, background='white', activeforeground='blue', borderwidth=0)
+    amp2minusbut = HoverButton(simulator, text="amp2 -", padx=2, pady=2, command=amp2minus, background='white', activeforeground='blue', borderwidth=0)
+    aplusbut = HoverButton(simulator, text="a+", padx=2, pady=2, command=aplus, background='white',activeforeground='blue', borderwidth=0)
+    aminusbut = HoverButton(simulator, text="a-", padx=2, pady=2, command=aminus, background='white',activeforeground='blue', borderwidth=0)
+    bplusbut = HoverButton(simulator, text="b+", padx=2, pady=2, command=bplus, background='white',activeforeground='blue', borderwidth=0)
+    bminusbut = HoverButton(simulator, text="b-", padx=2, pady=2, command=bminus, background='white',activeforeground='blue', borderwidth=0)
+    phiplusbut = HoverButton(simulator, text="Φ+", padx=2, pady=2, command=phiplus, background='white',activeforeground='blue', borderwidth=0)
+    phiminusbut = HoverButton(simulator, text="Φ-", padx=2, pady=2, command=phiminus, background='white',activeforeground='blue', borderwidth=0)
+    # tplusbut = HoverButton(simulator, text="t+", padx=2, pady=2, command=tplus, background='white',activeforeground='blue', borderwidth=0)
+    # tminusbut = HoverButton(simulator, text="t-", padx=2, pady=2, command=tminus, background='white', activeforeground='blue', borderwidth=0)
+    drawwbut = HoverButton(simulator, text="draw", padx=2, pady=2, command=draw, background='white', activeforeground='blue', borderwidth=0)
+
+
+
+
+    amp1plusbut.place(x=100, y=100)
+    amp1minusbut.place(x=200, y=100)
+    amp2plusbut.place(x=100, y=200)
+    amp2minusbut.place(x=200, y=200)
+    aplusbut.place(x=100, y=300)
+    aminusbut.place(x=200, y=300)
+    bplusbut.place(x=100, y=400)
+    bminusbut.place(x=200, y=400)
+    phiplusbut.place(x=100, y=500)
+    phiminusbut.place(x=200, y=500)
+    # tplusbut.place(x=100, y=600)
+    # tminusbut.place(x=200, y=600)
+    drawwbut.place(x=200, y=700)
+
+def next1fn():
+    img2 = Image.open("addaphotohere.png")
+    img.paste(img2, (0, 0))
+    next1.destroy()
+    global start_sim
+    start_sim = HoverButton(simulator, text="Start simulation", padx=2, pady=2, command=startsim, background='white',activeforeground='blue', borderwidth=0)
+    start_sim.place(x=950,y=680)
+
+
+simulator = Tk()
+simulator.geometry("1080x720")
+simulator.title("LISSAJOUS PATTERN")
+canva = Canvas(simulator, width=1080, height=720)
+img = ImageTk.PhotoImage(Image.open("addaphotohere.png"))
+canva.create_image(10, 10, anchor=NW, image=img)
+
+
+
+next1=HoverButton(simulator,text="Next",padx=2,pady=2,command=next1fn,background='white',activeforeground='blue',borderwidth=0)
+
+
+
+canva.place(x=0,y=0)
+next1.place(x=1000,y=680)
+
+
+simulator.mainloop()
